@@ -1,5 +1,6 @@
 import * as React from "react"
 import type { HeadFC, PageProps } from "gatsby"
+import {graphql} from "gatsby";
 
 const pageStyles = {
   color: "#232129",
@@ -136,7 +137,9 @@ const links = [
   },
 ]
 
-const IndexPage: React.FC<PageProps> = () => {
+const IndexPage: React.FC<PageProps> = ({data}: {data: any}) => {
+  const  { allSupabasePosts: {nodes: posts} } = data; //posts here is the alias of note #https://stackoverflow.com/questions/73138640/destructuring-objects-with-aliases-at-multiple-levels
+  console.log(11,posts)
   return (
     <main style={pageStyles}>
       <h1 style={headingStyles}>
@@ -144,6 +147,10 @@ const IndexPage: React.FC<PageProps> = () => {
         <br />
         <span style={headingAccentStyles}>— you just made a Gatsby site! 🎉🎉🎉</span>
       </h1>
+
+
+
+
       <p style={paragraphStyles}>
         Edit <code style={codeStyles}>src/pages/index.tsx</code> to see this page
         update in real-time. 😎
@@ -187,7 +194,16 @@ const IndexPage: React.FC<PageProps> = () => {
     </main>
   )
 }
-
+export const query = graphql`
+  query MyQuery  {
+    allSupabasePosts {
+      nodes {
+        id
+        title
+      }
+    }
+  }
+`
 export default IndexPage
 
 export const Head: HeadFC = () => <title>Home Page</title>

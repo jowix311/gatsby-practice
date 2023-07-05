@@ -23,7 +23,20 @@ const config: GatsbyConfig = {
       "path": "./src/pages/"
     },
     __key: "pages"
-  }]
+  },
+    {
+      resolve: `gatsby-source-supabase`,
+      options: {
+        supabaseUrl: "https://wommuslhvsnxlagtyair.supabase.co",
+        supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvbW11c2xodnNueGxhZ3R5YWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjkxMTE4ODMsImV4cCI6MTk4NDY4Nzg4M30.0JXmUdBDv64iNj6zzJM2dX3IsvuafmBhw1an6gBosXw",
+        types: [
+          {
+            type: "Posts",
+            query: (client: any) => client.from("posts").select("*"), //sync or async
+          }
+        ],
+      },
+    },]
 };
 
 export default config;
